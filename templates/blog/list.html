@@ -1,0 +1,61 @@
+{% extends 'layout/base.html' %}
+{% load django_bootstrap5 %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h1 class="display-1">Welcome to the blog</h1>
+        </div>
+        <!-- display the content in a list/grid -->
+        <div class="col-md-3 ">
+
+            {% for item in article %}
+            <div class="card mb-3">
+
+                {% if item.image %}
+                <img src="{{item.image.url}}" alt="" class="card-img">
+                {% endif %}
+
+                <div class="card-body">
+                    <h3 class="card-title">{{item.title}}</h3>
+                    <small>{{item.created_on.date}}</small>
+                </div>
+            </div>
+            {% empty %}
+            <div class="card">
+                <div class="card-body">
+                    <p class="lead">No Articles found</p>
+                </div>
+            </div>
+            {% endfor %}
+
+        </div>
+        <div class="col-md-9">
+            <p class="lead">
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Repellat nemo ex nam molestiae non obcaecati
+                enim asperiores rerum rem, totam facere natus, iure labore quasi quod dicta tempora fugit reiciendis,
+                culpa repudiandae ullam. Velit qui hic, vero, voluptates ex molestias odit ipsa optio consequatur sit
+                excepturi sed aliquam esse explicabo. Modi est eligendi quos neque, laudantium hic veniam fuga commodi
+                similique natus molestias. Eaque obcaecati magni quibusdam officia est ducimus porro a incidunt,
+                possimus placeat nam! Vitae, molestias. Dolores, neque voluptatum tempora quasi, error ullam quae et
+                maxime iure maiores pariatur qui repellat deserunt! Officia voluptates amet incidunt natus illum?
+            </p>
+        </div>
+    </div>
+</div>
+<div class="container-fluid p-5 bg-info text-white">
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+            <form method="post" autocomplete="off">
+                {% csrf_token %}
+                {% bootstrap_form form layout="inline" %}
+                <button type="submit" class="btn btn-light text-secondary my-3">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
+
+{% block css %}{% endblock css %}
+{% block js %}{% endblock js %}
